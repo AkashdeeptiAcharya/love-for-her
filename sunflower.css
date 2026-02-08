@@ -1,0 +1,480 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+body.sunflower {
+  background: radial-gradient(circle at top,
+    #fff2a8 0%,
+    #ffd84d 40%,
+    #5a3b00 100%);
+}
+
+
+
+.sunflower-flower img {
+  animation-duration: 14s;
+}
+
+body {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+
+
+.sunflower .flower img {
+  animation-duration: 18s;
+}
+
+
+.proposal {
+  position: relative;
+  z-index: 1000;     /* higher than any flower/petal */
+  margin: 32px auto;
+  text-align: center;
+  max-width: 720px;
+}
+.proposal .line {
+  font-size: 16px;
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+
+.proposal h1 {
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.proposal .question {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+
+.sunflower-scene {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+.sunflower-wrapper {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  margin: 0 auto 48px auto; /* space below for text */
+  display: grid;
+  place-items: center;
+}
+
+.question {
+  position: relative; /* NOT absolute */
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sunflower-wrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 56px;
+}
+
+.sunflower-main {
+  width: 420px;
+  max-width: 70vw;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;;
+}
+
+@keyframes sunflowerFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+
+
+@keyframes compress {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* slow, deliberate squeeze */
+  30% {
+    transform: scale(0.82) rotate(-2deg);
+  }
+
+  50% {
+    transform: scale(0.7) rotate(2deg);
+  }
+
+  /* things start getting unstable */
+  65% {
+    transform: scale(0.6) rotate(-3deg);
+  }
+
+  /* aggressive shakes */
+  72% {
+    transform: scale(0.56) rotate(4deg);
+  }
+
+  78% {
+    transform: scale(0.53) rotate(-5deg);
+  }
+
+  84% {
+    transform: scale(0.51) rotate(6deg);
+  }
+
+  90% {
+    transform: scale(0.49) rotate(-6deg);
+  }
+
+  95% {
+    transform: scale(0.47) rotate(3deg);
+  }
+
+  100% {
+    transform: scale(0.45) rotate(0deg);
+  }
+}
+
+.compressing {
+  animation: compress 1.6s cubic-bezier(0.25, 1, 0.3, 1) forwards
+  
+}
+
+ .sunflower-vanish {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.petal-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.burst-petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+@keyframes explode {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(
+        calc(-50% + var(--x)),
+        calc(-50% + var(--y))
+      )
+      rotate(var(--r))
+      scale(1);
+    opacity: 1;
+  }
+}
+@keyframes orbit {
+  from {
+    transform:
+      translate(
+        calc(-50% + var(--ox)),
+        calc(-50% + var(--oy))
+      )
+      rotate(0deg);
+  }
+  to {
+    transform:
+      translate(
+        calc(-50% + var(--ox)),
+        calc(-50% + var(--oy))
+      )
+      rotate(360deg);
+  }
+}
+
+.orbiting {
+  animation: orbit 6s linear infinite;
+}
+
+.orbit-scene {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  pointer-events: none;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.her-photo {
+  width: 140px;
+  height: 180px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.petal-orbit {
+  position: absolute;
+  inset: 0;
+  animation: slowOrbit 28s linear infinite;
+}
+
+@keyframes slowOrbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.orbit-petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  transform-origin: 0 0;
+  opacity: 0.1;
+  animation: petalDrift 6s ease-in-out infinite;
+}
+
+.p1  { transform: rotate(0deg)   translateX(280px); }
+.p2  { transform: rotate(30deg)  translateX(280px); }
+.p3  { transform: rotate(60deg)  translateX(280px); }
+.p4  { transform: rotate(90deg)  translateX(280px); }
+.p5  { transform: rotate(120deg) translateX(280px); }
+.p6  { transform: rotate(150deg) translateX(280px); }
+.p7  { transform: rotate(180deg) translateX(280px); }
+.p8  { transform: rotate(210deg) translateX(280px); }
+.p9  { transform: rotate(240deg) translateX(280px); }
+.p10 { transform: rotate(270deg) translateX(280px); }
+.p11 { transform: rotate(300deg) translateX(280px); }
+.p12 { transform: rotate(330deg) translateX(280px); }
+
+
+@keyframes petalDrift {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.fade-out {
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 1.2s ease, filter 1.2s ease;
+}
+
+.orbit-ready .orbit-petal {
+  opacity: 0.9;
+  transition: opacity 2s ease;
+}
+
+.orbit-scene.hide-orbit .orbit-petal {
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 1s ease, filter 1s ease;
+}
+
+.buttons {
+  margin-top: 24px;
+  position: relative;
+  height: 80px;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#yesBtn {
+  background: #ffd84d;
+  color: #5a3b00;
+}
+
+#yesBtn:hover {
+  background: #ffe68a;
+}
+
+
+.her-photo,
+.sunflower-wrapper,
+.petal-field,
+.orbit-scene {
+  z-index: 1;
+}
+
+.proposal {
+  outline: 4px solid red;
+}
+
+button {
+  outline: 3px solid lime !important;
+}
+
+body.state-opening .sunflower-wrapper,
+body.state-opening .proposal {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+body.state-opening .petal-field {
+  pointer-events: none;
+}
+
+
+.buttons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1100;
+}
+
+.fade-away {
+  opacity: 0 !important;
+  transform: translateY(12px) scale(0.95) !important;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scale-away {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.state-cosmos {
+  background: radial-gradient(circle at center,
+    #0b1023 0%,
+    #030617 60%,
+    #000000 100%);
+  transition: background 1.6s ease;
+}
+
+.cosmos-love {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5000;
+  transition: opacity 1.5s ease;
+}
+
+.love {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+body.state-cosmos .cosmos-love {
+  opacity: 1;
+}
+
+body.state-cosmos .love {
+  opacity: 1;
+}
+/* optional: slightly soften the text */
+#ui .love {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -225px 0 0 -225px;
+      /* per-item delay via CSS variable --i (1..N) */
+      --i: 1;
+    }
+    #ui .love:last-child .love_word {
+      color: #fff;
+      font-size: 2rem;
+      text-shadow: 0 0 10px #ea80b0;
+    }
+    /* Make the last item match the others */
+#ui .love:last-child .love_word {
+  color: #ea80b0;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px #fff;
+}
+
+    #ui .love_word {
+      color: #ea80b0;
+      font-size: 1.4rem;
+      transform: translateY(-100%) rotateZ(-30deg);
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    #ui .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+    #ui .love_vertical {
+      animation: vertical 20000ms infinite linear;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+     @keyframes horizontal {
+      from { transform: translateX(0px); }
+      to   { transform: translateX(450px); }
+    }
+    @keyframes vertical {
+      0%   { transform: translateY(180px); }
+      10%  { transform: translateY(45px); }
+      15%  { transform: translateY(4.5px); }
+      18%  { transform: translateY(0px); }
+      20%  { transform: translateY(4.5px); }
+      22%  { transform: translateY(34.61538px); }
+      24%  { transform: translateY(64.28571px); }
+      25%  { transform: translateY(112.5px); }
+      26%  { transform: translateY(64.28571px); }
+      28%  { transform: translateY(34.61538px); }
+      30%  { transform: translateY(4.5px); }
+      32%  { transform: translateY(0px); }
+      35%  { transform: translateY(4.5px); }
+      40%  { transform: translateY(45px); }
+      50%  { transform: translateY(180px); }
+      71%  { transform: translateY(428.57143px); }
+      72.5%{ transform: translateY(441.17647px); }
+      75%  { transform: translateY(450px); }
+      77.5%{ transform: translateY(441.17647px); }
+      79%  { transform: translateY(428.57143px); }
+      100% { transform: translateY(180px); }
+    }
